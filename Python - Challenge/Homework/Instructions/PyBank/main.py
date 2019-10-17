@@ -25,20 +25,20 @@ with open(csvpath, 'r') as csvfile:
             
     netTotal = sum(profilLossList)
     
-    for i in (profilLossList):
-        if (i+1)>0:
-            change.append((profilLossList [(i+1)])-(profilLossList [i]))
-            changeDict.update({month[i+1]:((profilLossList [(i+1)])-(profilLossList [i]))})
+    for i in range(len(profilLossList)-1):
+
+            change.append((profilLossList [(i+1)])-(profilLossList [(i)]))
+            changeDict.update({month[i+1]:((profilLossList [(i+1)])-(profilLossList [(i)]))})
 
     totalMonths = len(month)
     avgChange = round(sum(change)/len(change),2)
     gIncreace = max(change)
     gDecreace = min(change)
 
-    print(len(profilLossList))
-    print(len(month))
-    print(len(change))
-    print(changeDict)
+    #print((profilLossList))
+    #print(len(month))
+    #print((change))
+    #print(changeDict)
     #print(mylist)
    
    
