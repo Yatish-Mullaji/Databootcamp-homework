@@ -5,34 +5,46 @@ var tbody = d3.select("tbody");
 
 
 tableData.forEach((ufoSightings) => {
-    var row = tbody.append("tr");
-    Object.entries(ufoSightings).forEach(([key, value]) => {
-      var cell = row.append("td");
-      cell.text(value);
+  var row = tbody.append("tr");
+  Object.entries(ufoSightings).forEach(([key, value]) => {
+    var cell = row.append("td");
+    cell.text(value);
     });
   });
 
-var button = d3.select("button");
+  var button = d3.select("#filter-btn");
+  button.on("click", function() {
+    d3.event.preventDefault();
 
-button.on("click", function() {
+    // Filter by date
+    var dateInput = d3.select("#datetime");
+    var datetime = dateInput.property("value");
 
-  // Select the input element and get the raw HTML node
-  var inputElement = d3.select("#datetime");
+    var filterInputs = {};
 
-  // Get the value property of the input element
-  var inputValue = inputElement.property ("value");
+    if (datetime !== "") {
+        filterInputs.datetime = datetime;
+    }
 
-  console.log(inputValue);
+    var filtered = tableData.filter(obj => {
+        var criteria = true;
+        Object.entries(filterInputs).forEach(([key, value]) => {
+            criteria = criteria && (obj[key] === value);
+        });
+        return criteria;
+    });
 
-  var filteredData = tableData.filter(sightings => sightings.datetime === inputValue);
+    console.log(filtered);
 
-  console.log(filteredData);
+    tbody.html("");
 
-  var cities = filteredData.map(sightings => sightings.city);
-  console.log(cities);
-
-  var cityList = d3.select(".summary");
-
-  cityList.append("li").text(`Cities:  ${cities}`);
-
+    filtered.forEach((ufoSightings) => {
+      var row = tbody.append("tr");
+      Object.entries(ufoSightings).forEach(([key, value]) => {
+        var cell = row.append("td");
+        cell.text(value);
+        });
+      });
 });
+
+
