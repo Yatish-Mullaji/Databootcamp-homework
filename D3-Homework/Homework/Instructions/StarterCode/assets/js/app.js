@@ -94,13 +94,23 @@ function updateToolTip(chosenXAxis, circlesGroup) {
   else {
     var label = "Household Income (Median)";
   }
-
+  // svg.append("text")
+  // .style("text-anchor", "middle")
+  // .style("font-size", "12px")
+  // .selectAll("tspan").data(data)
+  // .enter().
+  // append("tspan")
+  // .attr("x", function(data) {return xLinearScale(data[chosenXAxis] - 0);})
+  // .attr("y", function(data) {return yLinearScale(data[chosenYAxis] - 0.2);})
+  // .text(function(data) {return data.abbr});
+  
   var toolTip = d3.tip()
     .attr("class", "d3-tip")
     .offset([80, -60])
     .html(function(d) {
       return (`${d.state}<br>${label} ${d[chosenXAxis]}`);
-    });
+    })
+
 
   circlesGroup.call(toolTip);
 
@@ -254,39 +264,39 @@ d3.csv("/assets/data/data.csv").then(function(Data, err) {
         circlesGroup = updateToolTip(chosenXAxis, circlesGroup);
 
         // changes classes to change bold text
-        // if (chosenXAxis === "poverty") {
-        //   poverty
-        //     .classed("active", true)
-        //     .classed("inactive", false);
-        //   age
-        //     .classed("active", false)
-        //     .classed("inactive", true);
-        //   income
-        //     .classed("active", false)
-        //     .classed("inactive", true);
-        // }
-        // else if (chosenXAxis === "age") {
-        //      age
-        //       .classed("active", true)
-        //       .classed("inactive", false);
-        //      poverty
-        //       .classed("active", false)
-        //       .classed("inactive", true);
-        //      income
-        //       .classed("active", false)
-        //       .classed("inactive", true);              
-        //   }
-        // else {
-        //   income
-        //     .classed("active", true)
-        //     .classed("inactive", false);
-        //   age
-        //     .classed("active", false)
-        //     .classed("inactive", true);
-        //   poverty
-        //     .classed("active", false)
-        //     .classed("inactive", true);            
-        // }
+        if (chosenXAxis === "poverty") {
+          poverty
+            .classed("active", true)
+            .classed("inactive", false);
+          age
+            .classed("active", false)
+            .classed("inactive", true);
+          income
+            .classed("active", false)
+            .classed("inactive", true);
+        }
+        else if (chosenXAxis === "age") {
+             age
+              .classed("active", true)
+              .classed("inactive", false);
+             poverty
+              .classed("active", false)
+              .classed("inactive", true);
+             income
+              .classed("active", false)
+              .classed("inactive", true);              
+          }
+        else {
+          income
+            .classed("active", true)
+            .classed("inactive", false);
+          age
+            .classed("active", false)
+            .classed("inactive", true);
+          poverty
+            .classed("active", false)
+            .classed("inactive", true);            
+        }
       }
 
       var valueY = d3.select(this).attr("valueY");
@@ -311,79 +321,7 @@ d3.csv("/assets/data/data.csv").then(function(Data, err) {
         circlesGroup = updateToolTip(chosenYAxis, circlesGroup);
 
         // changes classes to change bold text
-        // if (chosenYAxis === "healthcare") {
-        //   healthcare
-        //     .classed("active", true)
-        //     .classed("inactive", false);
-        //   obesity
-        //     .classed("active", false)
-        //     .classed("inactive", true);
-        //   smokes
-        //     .classed("active", false)
-        //     .classed("inactive", true);
-        // }
-        // else if (chosenYAxis === "smokes") {
-        //      smokes
-        //       .classed("active", true)
-        //       .classed("inactive", false);
-        //      healthcare
-        //       .classed("active", false)
-        //       .classed("inactive", true);
-        //      obesity
-        //       .classed("active", false)
-        //       .classed("inactive", true);              
-        //   }
-        // else {
-        //   obesity
-        //     .classed("active", true)
-        //     .classed("inactive", false);
-        //   healthcare
-        //     .classed("active", false)
-        //     .classed("inactive", true);
-        //   smokes
-        //     .classed("active", false)
-        //     .classed("inactive", true);            
-        // }
-      }
-      if (chosenXAxis === "poverty") {
-        poverty
-          .classed("active", true)
-          .classed("inactive", false);
-        age
-          .classed("active", false)
-          .classed("inactive", true);
-        income
-          .classed("active", false)
-          .classed("inactive", true);
-    
-       var chosenYAxis = "healthcare"
-       
-       switch(chosenYAxis){
-    
-        case "smokes":
-            smokes
-            .classed("active", true)
-            .classed("inactive", false);
-           healthcare
-            .classed("active", false)
-            .classed("inactive", true);
-           obesity
-            .classed("active", false)
-            .classed("inactive", true);
-            break;
-    
-        case "obesity":
-            obesity
-            .classed("active", true)
-            .classed("inactive", false);
-          healthcare
-            .classed("active", false)
-            .classed("inactive", true);
-          smokes
-            .classed("active", false)
-            .classed("inactive", true); 
-            break;  
-        default:
+        if (chosenYAxis === "healthcare") {
           healthcare
             .classed("active", true)
             .classed("inactive", false);
@@ -394,117 +332,189 @@ d3.csv("/assets/data/data.csv").then(function(Data, err) {
             .classed("active", false)
             .classed("inactive", true);
         }
-       
-       healthcare
-                .classed("active", true)
-                .classed("inactive", false);
-              obesity
-                .classed("active", false)
-                .classed("inactive", true);
-              smokes
-                .classed("active", false)
-                .classed("inactive", true);
-      }
-      else if (chosenXAxis === "age") {
-           age
+        else if (chosenYAxis === "smokes") {
+             smokes
+              .classed("active", true)
+              .classed("inactive", false);
+             healthcare
+              .classed("active", false)
+              .classed("inactive", true);
+             obesity
+              .classed("active", false)
+              .classed("inactive", true);              
+          }
+        else {
+          obesity
             .classed("active", true)
             .classed("inactive", false);
-           poverty
+          healthcare
             .classed("active", false)
             .classed("inactive", true);
-           income
+          smokes
             .classed("active", false)
-            .classed("inactive", true); 
-            
-            var chosenYAxis = "healthcare"
-       
-            switch(chosenYAxis){
-         
-             case "smokes":
-                 smokes
-                 .classed("active", true)
-                 .classed("inactive", false);
-                healthcare
-                 .classed("active", false)
-                 .classed("inactive", true);
-                obesity
-                 .classed("active", false)
-                 .classed("inactive", true);
-                 break;
-         
-             case "obesity":
-                 obesity
-                 .classed("active", true)
-                 .classed("inactive", false);
-               healthcare
-                 .classed("active", false)
-                 .classed("inactive", true);
-               smokes
-                 .classed("active", false)
-                 .classed("inactive", true); 
-                 break;  
-             default:
-               healthcare
-                 .classed("active", true)
-                 .classed("inactive", false);
-               obesity
-                 .classed("active", false)
-                 .classed("inactive", true);
-               smokes
-                 .classed("active", false)
-                 .classed("inactive", true);
-             }
+            .classed("inactive", true);            
         }
-      else {
-        income
-          .classed("active", true)
-          .classed("inactive", false);
-        age
-          .classed("active", false)
-          .classed("inactive", true);
-        poverty
-          .classed("active", false)
-          .classed("inactive", true);
+      }
+      // if (chosenXAxis === "poverty") {
+      //   poverty
+      //     .classed("active", true)
+      //     .classed("inactive", false);
+      //   age
+      //     .classed("active", false)
+      //     .classed("inactive", true);
+      //   income
+      //     .classed("active", false)
+      //     .classed("inactive", true);
+    
+      //  var chosenYAxis = "healthcare"
+       
+      //  switch(chosenYAxis){
+    
+      //   case "smokes":
+      //       smokes
+      //       .classed("active", true)
+      //       .classed("inactive", false);
+      //      healthcare
+      //       .classed("active", false)
+      //       .classed("inactive", true);
+      //      obesity
+      //       .classed("active", false)
+      //       .classed("inactive", true);
+      //       break;
+    
+      //   case "obesity":
+      //       obesity
+      //       .classed("active", true)
+      //       .classed("inactive", false);
+      //     healthcare
+      //       .classed("active", false)
+      //       .classed("inactive", true);
+      //     smokes
+      //       .classed("active", false)
+      //       .classed("inactive", true); 
+      //       break;  
+      //   default:
+      //     healthcare
+      //       .classed("active", true)
+      //       .classed("inactive", false);
+      //     obesity
+      //       .classed("active", false)
+      //       .classed("inactive", true);
+      //     smokes
+      //       .classed("active", false)
+      //       .classed("inactive", true);
+      //   }
+       
+      //  healthcare
+      //           .classed("active", true)
+      //           .classed("inactive", false);
+      //         obesity
+      //           .classed("active", false)
+      //           .classed("inactive", true);
+      //         smokes
+      //           .classed("active", false)
+      //           .classed("inactive", true);
+      // }
+      // else if (chosenXAxis === "age") {
+      //      age
+      //       .classed("active", true)
+      //       .classed("inactive", false);
+      //      poverty
+      //       .classed("active", false)
+      //       .classed("inactive", true);
+      //      income
+      //       .classed("active", false)
+      //       .classed("inactive", true); 
+            
+      //       var chosenYAxis = "healthcare"
+       
+      //       switch(chosenYAxis){
+         
+      //        case "smokes":
+      //            smokes
+      //            .classed("active", true)
+      //            .classed("inactive", false);
+      //           healthcare
+      //            .classed("active", false)
+      //            .classed("inactive", true);
+      //           obesity
+      //            .classed("active", false)
+      //            .classed("inactive", true);
+      //            break;
+         
+      //        case "obesity":
+      //            obesity
+      //            .classed("active", true)
+      //            .classed("inactive", false);
+      //          healthcare
+      //            .classed("active", false)
+      //            .classed("inactive", true);
+      //          smokes
+      //            .classed("active", false)
+      //            .classed("inactive", true); 
+      //            break;  
+      //        default:
+      //          healthcare
+      //            .classed("active", true)
+      //            .classed("inactive", false);
+      //          obesity
+      //            .classed("active", false)
+      //            .classed("inactive", true);
+      //          smokes
+      //            .classed("active", false)
+      //            .classed("inactive", true);
+      //        }
+      //   }
+      // else {
+      //   income
+      //     .classed("active", true)
+      //     .classed("inactive", false);
+      //   age
+      //     .classed("active", false)
+      //     .classed("inactive", true);
+      //   poverty
+      //     .classed("active", false)
+      //     .classed("inactive", true);
           
-          var chosenYAxis = "healthcare"
+      //     var chosenYAxis = "healthcare"
        
-          switch(chosenYAxis){
+      //     switch(chosenYAxis){
        
-           case "smokes":
-               smokes
-               .classed("active", true)
-               .classed("inactive", false);
-              healthcare
-               .classed("active", false)
-               .classed("inactive", true);
-              obesity
-               .classed("active", false)
-               .classed("inactive", true);
-               break;
+      //      case "smokes":
+      //          smokes
+      //          .classed("active", true)
+      //          .classed("inactive", false);
+      //         healthcare
+      //          .classed("active", false)
+      //          .classed("inactive", true);
+      //         obesity
+      //          .classed("active", false)
+      //          .classed("inactive", true);
+      //          break;
        
-           case "obesity":
-               obesity
-               .classed("active", true)
-               .classed("inactive", false);
-             healthcare
-               .classed("active", false)
-               .classed("inactive", true);
-             smokes
-               .classed("active", false)
-               .classed("inactive", true); 
-               break;  
-           default:
-             healthcare
-               .classed("active", true)
-               .classed("inactive", false);
-             obesity
-               .classed("active", false)
-               .classed("inactive", true);
-             smokes
-               .classed("active", false)
-               .classed("inactive", true);
-           }
-      };
+      //      case "obesity":
+      //          obesity
+      //          .classed("active", true)
+      //          .classed("inactive", false);
+      //        healthcare
+      //          .classed("active", false)
+      //          .classed("inactive", true);
+      //        smokes
+      //          .classed("active", false)
+      //          .classed("inactive", true); 
+      //          break;  
+      //      default:
+      //        healthcare
+      //          .classed("active", true)
+      //          .classed("inactive", false);
+      //        obesity
+      //          .classed("active", false)
+      //          .classed("inactive", true);
+      //        smokes
+      //          .classed("active", false)
+      //          .classed("inactive", true);
+      //      }
+      //};
     
     });
 }).catch(function(error) {
